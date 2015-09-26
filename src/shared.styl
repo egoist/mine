@@ -1,0 +1,165 @@
+@import 'nib'
+@import './styl/normalize'
+@import './styl/mixins'
+
+body
+  margin 0
+  font 14px/1.4 "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif
+  background-color #f4f4f4
+
+h1,h2,h3,h4,h5,ul
+  margin 0
+  
+*
+  box-sizing border-box
+
+a 
+  color #333
+  text-decoration none
+  &.underline
+    text-decoration underline
+  &.underborder
+    border-bottom 1px solid
+
+p 
+  word-wrap break-word
+
+hr 
+  border none
+  background-color #ccc
+  height 1px 
+  display block
+  margin 15px 0
+
+.tc 
+  text-align center
+
+.container
+  max-width 600px
+  margin 0 auto
+  padding 0 10px
+  
+header.header
+  clearfix()
+  background-color white
+  padding 20px 0
+  box-shadow 0 0 3px 0 rgba(0, 0, 0, 0.07)
+  h1.sitename
+    float left
+  ul.nav-right
+    clearfix()
+    float right
+    list-style none
+    li 
+      float left
+      a 
+        display block
+        font-size 15px
+        color #778087
+        &.nav-down
+          text-height 38px
+          border-radius 2px
+          min-width 140px
+          text-align center
+          border 1px solid #ccc
+          &.v-link-active
+            background-color #f9f9f9
+            color #333
+        &.nav-plus
+          font-size 16px
+          &.v-link-active
+            background-color #f9f9f9
+            color #333
+    li+li
+      margin-left 15px
+
+.btn
+  border 1px solid #ccc
+  padding 0 15px
+  text-height 38px
+  border-radius 2px
+  background-color white
+  transition background-color .2s ease
+  &:disabled,&:disabled:hover
+    color #778087 !important
+    background-color #f9f9f9 !important
+    border-color #ddd !important
+  &:hover
+    background-color #f9f9f9
+  &.btn-success
+    background-color #449d44
+    border-color #5ca941
+    &:hover
+      background-color #569e3d
+  &.btn-info
+    background-color #5bc0de
+    border-color #46b8da
+    &:hover
+      background-color #31b0d5
+      border-color #269abc
+
+[class*="btn-"]
+  color white
+ 
+#content
+  padding 30px 10px
+
+// form 
+.form 
+  max-width 40%
+  
+.form-group
+  margin-bottom 15px
+  label
+    display block
+    margin-bottom 8px
+  .form-control
+    resize none
+    width 240px
+    display block
+    border 1px solid #e2e2e2
+    border-radius 2px
+    padding 8px 12px
+    outline none
+    &:focus
+      box-shadow 0 0 0 3px rgba(48,144,228,.1)
+      border-color #66afe9
+ 
+.bs-checkbox
+  position relative
+  display block
+  margin-top 10px
+  margin-bottom 10px
+  font-size 14px
+  label
+    min-height 20px
+    padding-left 20px
+    margin-bottom 0
+    font-weight 400
+    cursor pointer
+    input[type=checkbox]
+      position absolute
+      margin-top 3px
+      margin-left -20px
+
+@import '/lib/wtf-forms/wtf-forms.css'
+.control-indicator
+  top 2px
+
+.box
+  padding 20px
+  background-color white
+  position relative
+  box-shadow 0 0 3px 0 rgba(0, 0, 0, 0.07)
+  
+.new-form
+  width 100%
+  max-width @width
+  .form-control
+    width @width
+
+.help-block
+  color #999
+  font-size 13px
+  
+@import './styl/alert'

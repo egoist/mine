@@ -1,0 +1,18 @@
+{
+  "name": "mine",
+  "version": "0.0.0",
+  "authors": [
+    "AprilOrange <aprilorange.net@icloud.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "wtf-forms": "~2.2.0"
+  }
+}
