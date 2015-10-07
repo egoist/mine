@@ -58,4 +58,4 @@ gulp.task('build', [])
 
 gulp.task('dev', ['build-dev', 'serve', 'watch'])
 
-gulp.task('default', ['build', 'serve', 'watch'])
+gulp.task('default', [])

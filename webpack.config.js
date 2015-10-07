@@ -20,7 +20,7 @@ module.exports = {
           // apply babel transform to all javascript
           // inside *.vue files.
           js: 'babel?optional[]=runtime&stage=0',
-          css: 'style!css!stylus'
+          css: 'stylus'
         })
       },
       {

@@ -20,22 +20,33 @@
 
 <template>
   <div class="box tc user-box">
-    <div class="user-avatar">{{ $route.params.username.substring(0, 1) }}</div>
-    <h2 class="user-name">{{ $route.params.username }}</h2>
-    <hr style="width:100px;margin: 20px auto;">
-    <div class="user-signature">暂无个人介绍</div>
+  
+    <div v-if="user">
+      <div class="user-avatar">{{ $route.params.username.substring(0, 1) }}</div>
+      <h2 class="user-name">{{ $route.params.username }}</h2>
+      <div class="user-signature">{{ user.signature ? user.signature : '暂无签名' }}</div>
+      <hr style="width:100px;margin: 20px auto;">
+      <div class="user-introduction">{{ user.introduction ? user.introduction : '暂无个人介绍' }}</div>     
+    </div>
+
   </div>
   
 </template>
 
 <script>
+  const _ = require('../util')
   export default {
     data () {
       return {
 
-
+        user: null
 
       }
+    },
+    ready () {
+      this.$http.get(_.api(`user/${this.$route.params.username}`), data => {
+        this.user = data.user
+      })
     }
   }
 </script>

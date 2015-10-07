@@ -45,7 +45,7 @@ export default {
         else if (data.user && typeof data.user === 'object') {
           _.userdb.override(data.user)
           this.onUpdateHeader(data.user)
-          location.hash = '/'
+          this.$route.router.go('/')
         }
         
       })

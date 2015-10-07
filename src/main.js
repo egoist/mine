@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import validator from 'vue-validator'
+import _ from './util'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -9,8 +10,6 @@ Vue.use(validator)
 if (location.hostname === 'localhost') {
   Vue.config.debug = true
 }
-
-require('./directives/paste')
 
 var router = new VueRouter()
 router.map({
@@ -32,6 +31,22 @@ router.map({
   },
   '/new': {
     component: require('./views/new')
+  },
+  '/new_group': {
+    component: require('./views/new_group')
+  },
+  '/settings': {
+    component: require('./views/settings')
+  }
+})
+
+router.beforeEach(({ to, next }) => {
+  const user = _.userdb.get()
+  if (to.path === '/signin' || to.path === '/signup') {
+    if (!user) next()
+    else router.go('/')
+  } else {
+    next()
   }
 })
 

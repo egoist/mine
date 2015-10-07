@@ -5,7 +5,7 @@
 body
   margin 0
   font 14px/1.4 "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif
-  background-color #f4f4f4
+  background-color #fafafa
 
 h1,h2,h3,h4,h5,ul
   margin 0
@@ -13,9 +13,10 @@ h1,h2,h3,h4,h5,ul
 *
   box-sizing border-box
 
-a 
+a, .fake-a 
   color #333
   text-decoration none
+  cursor pointer
   &.underline
     text-decoration underline
   &.underborder
@@ -38,21 +39,55 @@ hr
   max-width 600px
   margin 0 auto
   padding 0 10px
-  
+ 
+.fade
+  color #778087
+  font-size 14px
+
 header.header
   clearfix()
   background-color white
   padding 20px 0
-  box-shadow 0 0 3px 0 rgba(0, 0, 0, 0.07)
+  border-bottom 1px solid #edeeee
   h1.sitename
     float left
   ul.nav-right
     clearfix()
     float right
     list-style none
-    li 
+    >li 
       float left
-      a 
+      &.nav-down-wrapper
+        &:hover
+          >a
+            border-radius 3px 3px 0 0
+          ul.nav-dropdown
+            transform translateY(0)
+            display block
+        position relative
+        ul.nav-dropdown
+          border-radius 0 0 3px 3px
+          li 
+            margin-left 0
+            a 
+              text-height 38px
+              text-align center
+              display block
+              &:hover
+                background-color #f9f9f9
+          list-style none
+          padding-left 0
+          position absolute
+          top 38px
+          display none
+          transform translateY(-150%)
+          left 0
+          right 0
+          background-color white
+          border 1px solid #ccc
+          border-top none
+          z-index 99
+      >a
         display block
         font-size 15px
         color #778087
@@ -150,8 +185,16 @@ header.header
   padding 20px
   background-color white
   position relative
-  box-shadow 0 0 3px 0 rgba(0, 0, 0, 0.07)
-  
+  border 1px solid #edeeee
+  border-radius 3px
+  .box-header
+    padding-bottom 20px
+    margin-bottom @padding-bottom
+    border-bottom 1px solid #e2e2e2
+ 
+.box+.box
+  margin-top 20px
+
 .new-form
   width 100%
   max-width @width
@@ -161,5 +204,41 @@ header.header
 .help-block
   color #999
   font-size 13px
+  a 
+    color @color
+
+.link-item
+  box-shadow none
+  border 1px solid #edeeee
+  margin-bottom 20px
+  border-radius 3px
+  clearfix()
+  .link-item-main
+    display block
+    background-color #f9f9f9
+    &:hover
+      background-color #f4f4f4
+  .link-item-recommend
+    margin-bottom 10px
+    font-size 15px
+  .link-item-left
+    float left
+    padding 18px
+  .link-item-image
+    size 44px 44px
+    background-size cover
+    background-position center
+  .link-item-content
+    padding 18px
+    padding-left 70px
+    height 80px
+  h2.link-item-title
+    font-size 16px
+    
+.no-groups
+  &:hover
+    background-color #FFFAE0
+    
+
   
 @import './styl/alert'

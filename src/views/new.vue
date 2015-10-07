@@ -1,6 +1,9 @@
 <template>
   <div class="box">
     <form class="form new-form" v-on="submit: handleSubmitLink" autocomplete="off">
+      <a class="no-groups alert alert-warning" v-if="!link.group" v-link="{ path: '/new_group' }">
+        <i class="fa fa-arrow-circle-o-right "></i> 请先新建一个圈子！
+      </a>
       <div class="form-group">
         <label for="url">网址</label>
         <input type="text" class="form-control" id="url" v-model="link.url" v-validate="required, minLength: 3, url" placeholder="包含在文本中的网址会自动获取第一个匹配到的，必填的" v-paste="handlePasteUrl" v-on="keydown: handleInputUrl">
@@ -12,9 +15,13 @@
       </div>
       <div class="form-group">
         <label for="recommend_words">推荐语</label>
-        <textarea class="form-control" id="recommend_words" v-model="link.recommend_words" placeholder="分享亮点、槽点和你的观点"></textarea>
+        <textarea v-autosize class="form-control" id="recommend_words" v-model="link.recommend_words" placeholder="分享亮点、槽点和你的观点"></textarea>
       </div>
-      <div class="form-group">
+      
+      <input type="hidden" v-validate="validGroup" v-model="link.group">
+      <form-groups on-groups-fetched="{{ handleGroupsFetched }}" on-group-changed="{{ handleGroupChanged }}"></form-groups>
+      
+      <div class="form-group" style="display:none">
         <label class="control checkbox" v-on="click: handleTitieFirst">
           <input type="checkbox" checked="{{ yourTitleFirst }}">
           <span class="control-indicator"></span>优先使用我填写的标题</label>
@@ -42,7 +49,8 @@
           url: '',
           title: '',
           image: '',
-          recommend_words: ''
+          recommend_words: '',
+          group: true
         },
         submitting: false,
         fetchingMeta: false,
@@ -57,12 +65,16 @@
         
         this.fetchUrlMeta(() => {
           console.log('end fetch, to post form.')
+          if (!this.link.title || !this.link.url) {
+            return
+          }
           this.submitting = true
           const api_key = _.userdb.get()['api_key']
           let link = {...this.link}
           link.url =  _.prep_http(this.matchUrl)
           this.$http.post(_.api('add'), {link: link, api_key: api_key}, (data) => {
             this.submitting = false
+            console.log(data)
             if (data.error) {
               this.error = data.message
             } else {
@@ -77,6 +89,9 @@
           if (this.matchUrl) {
             this.virgin = false
             console.log('fetchingMeta')
+            if (this.error) {
+              return
+            }
             this.fetchingMeta = true
             this.$http.get(_.api('url_meta'), {url: this.matchUrl}, (data) => {
               if (data.error) {
@@ -121,6 +136,12 @@
         e.preventDefault()
         this.yourTitleFirst = this.yourTitleFirst ? false : true
         
+      },
+      handleGroupsFetched (groups) {
+        this.link.group = groups.length > 0 ? true : false
+      },
+      handleGroupChanged (group_id) {
+        this.link.group = group_id
       }
     },
     computed: {
@@ -145,8 +166,18 @@
         url (val) {
           const match = val.match(urlRe)
           return val && match && match.length > 0
+        },
+        validGroup (val) {
+          return val && typeof val === 'string'
         }
       }
+    },
+    components: {
+      'form-groups': require('../components/form-groups')
+    },
+    directives: {
+      'autosize': require('../directives/autosize'),
+      'paste': require('../directives/paste')
     }
   }
 </script>

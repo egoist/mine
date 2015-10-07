@@ -60,9 +60,7 @@ export default {
       username (val) {
         return /^[a-zA-Z0-9_-]{1,20}$/.test(val)
       },
-      email (val) {
-        return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(val)
-      }
+      email: require('../helpers/validators').email
     }
   }
 }
